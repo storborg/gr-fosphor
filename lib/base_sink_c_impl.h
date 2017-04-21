@@ -101,6 +101,7 @@ namespace gr {
 
      protected:
       base_sink_c_impl();
+      void set_render_option(const int option, const bool enabled);
 
       /* Delegated implementation of GL context management */
       virtual void glctx_init() = 0;
@@ -124,6 +125,14 @@ namespace gr {
       void set_frequency_span(const double span);
 
       void set_fft_window(const gr::fft::window::win_type win);
+
+      void set_render_live(const bool enabled);
+      void set_render_max_hold(const bool enabled);
+      void set_render_histo(const bool enabled);
+      void set_render_waterfall(const bool enabled);
+      void set_render_label_freq(const bool enabled);
+      void set_render_label_pwr(const bool enabled);
+      void set_render_label_time(const bool enabled);
 
       /* gr::sync_block implementation */
       int work (int noutput_items,

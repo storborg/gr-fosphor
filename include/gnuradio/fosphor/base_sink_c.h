@@ -63,6 +63,14 @@ namespace gr {
       virtual void set_frequency_center(const double center) = 0;
       virtual void set_frequency_span(const double span) = 0;
 
+      virtual void set_render_live(const bool enabled) = 0;
+      virtual void set_render_max_hold(const bool enabled) = 0;
+      virtual void set_render_histo(const bool enabled) = 0;
+      virtual void set_render_waterfall(const bool enabled) = 0;
+      virtual void set_render_label_freq(const bool enabled) = 0;
+      virtual void set_render_label_pwr(const bool enabled) = 0;
+      virtual void set_render_label_time(const bool enabled) = 0;
+
       virtual void set_fft_window(const gr::fft::window::win_type win) = 0;
     };
 

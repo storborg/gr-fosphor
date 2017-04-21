@@ -11,10 +11,24 @@
 fosphor.qt_sink_c()
 self.$(id).set_fft_window($wintype)
 self.$(id).set_frequency_range($freq_center, $freq_span)
+self.$(id).set_render_live($render_live)
+self.$(id).set_render_max_hold($render_max_hold)
+self.$(id).set_render_histo($render_histo)
+self.$(id).set_render_waterfall($render_waterfall)
+self.$(id).set_render_label_freq($render_label_freq)
+self.$(id).set_render_label_pwr($render_label_pwr)
+self.$(id).set_render_label_time($render_label_time)
 self._$(id)_win = sip.wrapinstance(self.$(id).pyqwidget(), Qt.QWidget)
 $(gui_hint()($win))</make>
   <callback>set_fft_window($wintype)</callback>
   <callback>set_frequency_range($freq_center, $freq_span)</callback>
+  <callback>set_render_live($render_live)</callback>
+  <callback>set_render_max_hold($render_max_hold)</callback>
+  <callback>set_render_histo($render_histo)</callback>
+  <callback>set_render_waterfall($render_waterfall)</callback>
+  <callback>set_render_label_freq($render_label_freq)</callback>
+  <callback>set_render_label_pwr($render_label_pwr)</callback>
+  <callback>set_render_label_time($render_label_time)</callback>
   <param>
     <name>Window Type</name>
     <key>wintype</key>
@@ -63,6 +77,55 @@ $(gui_hint()($win))</make>
     <key>gui_hint</key>
     <value></value>
     <type>gui_hint</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>Display Spectrum</name>
+    <key>render_live</key>
+    <value>True</value>
+    <type>bool</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>Display Max Hold</name>
+    <key>render_max_hold</key>
+    <value>True</value>
+    <type>bool</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>Display Histogram</name>
+    <key>render_histo</key>
+    <value>True</value>
+    <type>bool</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>Display Waterfall</name>
+    <key>render_waterfall</key>
+    <value>True</value>
+    <type>bool</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>Display Freq Labels</name>
+    <key>render_label_freq</key>
+    <value>True</value>
+    <type>bool</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>Display Power Labels</name>
+    <key>render_label_pwr</key>
+    <value>False</value>
+    <type>bool</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>Display Time Labels</name>
+    <key>render_label_time</key>
+    <value>False</value>
+    <type>bool</type>
     <hide>part</hide>
   </param>
   <sink>

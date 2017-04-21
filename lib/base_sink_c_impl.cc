@@ -401,6 +401,58 @@ base_sink_c_impl::set_fft_window(const gr::fft::window::win_type win)
 	this->settings_mark_changed(SETTING_FFT_WINDOW);
 }
 
+void
+base_sink_c_impl::set_render_option(const int option, const bool enabled)
+{
+    if (enabled) {
+        this->d_render_main->options |= option;
+    } else {
+        this->d_render_main->options &= ~(option);
+    }
+    this->settings_mark_changed(SETTING_RENDER_OPTIONS);
+}
+
+void
+base_sink_c_impl::set_render_live(const bool enabled)
+{
+    set_render_option(FRO_LIVE, enabled);
+}
+
+void
+base_sink_c_impl::set_render_max_hold(const bool enabled)
+{
+    set_render_option(FRO_MAX_HOLD, enabled);
+}
+
+void
+base_sink_c_impl::set_render_histo(const bool enabled)
+{
+    set_render_option(FRO_HISTO, enabled);
+}
+
+void
+base_sink_c_impl::set_render_waterfall(const bool enabled)
+{
+    set_render_option(FRO_WATERFALL, enabled);
+}
+
+void
+base_sink_c_impl::set_render_label_freq(const bool enabled)
+{
+    set_render_option(FRO_LABEL_FREQ, enabled);
+}
+
+void
+base_sink_c_impl::set_render_label_pwr(const bool enabled)
+{
+    set_render_option(FRO_LABEL_PWR, enabled);
+}
+
+void
+base_sink_c_impl::set_render_label_time(const bool enabled)
+{
+    set_render_option(FRO_LABEL_TIME, enabled);
+}
 
 int
 base_sink_c_impl::work(
