@@ -99,6 +99,12 @@ QGLSurface::keyPressEvent(QKeyEvent *ke)
 	case Qt::Key_Space:
 		this->d_block->execute_ui_action(qt_sink_c_impl::FREEZE_TOGGLE);
 		break;
+    case Qt::Key_BracketLeft:
+        this->d_block->execute_ui_action(qt_sink_c_impl::TIMESCALE_FASTER);
+        break;
+    case Qt::Key_BracketRight:
+        this->d_block->execute_ui_action(qt_sink_c_impl::TIMESCALE_SLOWER);
+        break;
 	}
 }
 

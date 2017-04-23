@@ -361,6 +361,16 @@ base_sink_c_impl::execute_ui_action(enum ui_action_t action)
 	case FREEZE_TOGGLE:
 		this->d_frozen ^= 1;
 		break;
+
+    case TIMESCALE_FASTER:
+        // Reduce wf_span to stretch out the texture
+        this->d_render_main->wf_span = std::max(0.1f, this->d_render_main->wf_span - 0.05f);
+        break;
+
+    case TIMESCALE_SLOWER:
+        // Increase wf_span to shrink the texture
+        this->d_render_main->wf_span = std::min(1.0f, this->d_render_main->wf_span + 0.05f);
+        break;
 	}
 
 	this->settings_mark_changed(

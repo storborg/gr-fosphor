@@ -54,6 +54,8 @@ namespace gr {
 	RATIO_UP,
 	RATIO_DOWN,
 	FREEZE_TOGGLE,
+    TIMESCALE_FASTER,
+    TIMESCALE_SLOWER,
       };
 
       virtual void execute_ui_action(enum ui_action_t action) = 0;
