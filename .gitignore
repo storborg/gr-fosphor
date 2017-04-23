@@ -1,2 +1,5 @@
 # CMake build dir
 build/
+lib/fosphor/*.o
+lib/fosphor/resource_data.c
+lib/fosphor/main
