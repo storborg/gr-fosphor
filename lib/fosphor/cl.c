@@ -412,7 +412,7 @@ cl_queue_clear_buffers(struct fosphor *self)
 	color[0] = noise_floor;
 
 	img_region[0] = FOSPHOR_FFT_LEN;
-	img_region[1] = 1024;
+	img_region[1] = FOSPHOR_WATERFALL_HEIGHT;
 	img_region[2] = 1;
 
 	err = clEnqueueFillImage(cl->cq,
@@ -509,7 +509,7 @@ cl_init_buffers_nogl(struct fosphor *self)
 	img_desc.buffer = NULL;
 
 	/* Waterfall texture */
-	img_desc.image_height = 1024;
+	img_desc.image_height = FOSPHOR_WATERFALL_HEIGHT;
 
 	cl->mem_waterfall = clCreateImage(
 		cl->ctx,
@@ -922,7 +922,7 @@ fosphor_cl_process(struct fosphor *self,
 	CL_ERR_CHECK(err, "Unable to queue display kernel execution");
 
 	/* Advance waterfall */
-	cl->waterfall_pos = (cl->waterfall_pos + n_spectra) & 1023;
+	cl->waterfall_pos = (cl->waterfall_pos + n_spectra) & (FOSPHOR_WATERFALL_HEIGHT - 1);
 
 	/* New state */
 	cl->state = CL_PENDING;
@@ -985,7 +985,7 @@ fosphor_cl_finish(struct fosphor *self)
 		size_t img_region[3] = { 1024, 0, 1 };
 
 			/* Waterfall */
-		img_region[1] = 1024;
+		img_region[1] = FOSPHOR_WATERFALL_HEIGHT;
 
 		err = clEnqueueReadImage(cl->cq,
 			cl->mem_waterfall,

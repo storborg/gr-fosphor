@@ -196,7 +196,7 @@ gl_deferred_init(struct fosphor *self)
 		GL_R32F :
 		GL_LUMINANCE32F_ARB;
 
-	/* Waterfall texture (FFT_LEN * 1024) */
+	/* Waterfall texture (FFT_LEN * FOSPHOR_WATERFALL_HEIGHT) */
 	glGenTextures(1, &gl->tex_waterfall);
 
 	glBindTexture(GL_TEXTURE_2D, gl->tex_waterfall);
@@ -206,9 +206,9 @@ gl_deferred_init(struct fosphor *self)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, tex_fmt, FOSPHOR_FFT_LEN, 1024, 0, GL_RED, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, tex_fmt, FOSPHOR_FFT_LEN, FOSPHOR_WATERFALL_HEIGHT, 0, GL_RED, GL_FLOAT, NULL);
 
-	gl_tex2d_float_clear(gl->tex_waterfall, FOSPHOR_FFT_LEN, 1024);
+	gl_tex2d_float_clear(gl->tex_waterfall, FOSPHOR_FFT_LEN, FOSPHOR_WATERFALL_HEIGHT);
 
 	/* Histogram texture (FFT_LEN * 128) */
 	glGenTextures(1, &gl->tex_histogram);
@@ -360,7 +360,7 @@ fosphor_gl_refresh(struct fosphor *self)
 
 	gl_deferred_init(self);
 
-	gl_tex2d_write(gl->tex_waterfall, self->img_waterfall, FOSPHOR_FFT_LEN, 1024);
+	gl_tex2d_write(gl->tex_waterfall, self->img_waterfall, FOSPHOR_FFT_LEN, FOSPHOR_WATERFALL_HEIGHT);
 	gl_tex2d_write(gl->tex_histogram, self->img_histogram, FOSPHOR_FFT_LEN,  128);
 	gl_vbo_write(gl->vbo_spectrum, self->buf_spectrum, 2 * 2 * sizeof(float) * FOSPHOR_FFT_LEN);
 }
@@ -413,8 +413,11 @@ fosphor_gl_draw(struct fosphor *self, struct fosphor_render *render)
 		u[0] = 0.5f + tw + ((1.0f - tw) * render->freq_start);
 		u[1] = 0.5f + tw + ((1.0f - tw) * render->freq_stop);
 
-		v[1] = (float)render->_wf_pos / 1024.0f;
+		v[1] = (float)render->_wf_pos / (float) FOSPHOR_WATERFALL_HEIGHT;
 		v[0] = v[1] - render->wf_span;
+        //printf("x[0]: %f / x[1]: %f / y[0]: %f / y[1]: %f\n", x[0], x[1], y[0], y[1]);
+        //printf("u[0]: %f / u[1]: %f / v[0]: %f / v[1]: %f\n", u[0], u[1], v[0], v[1]);
+        //printf("-----\n");
 
 		fosphor_gl_cmap_enable(gl->cmap_ctx,
 		                       gl->tex_waterfall, gl->cmap_waterfall,

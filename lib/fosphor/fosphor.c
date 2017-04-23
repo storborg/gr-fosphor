@@ -63,7 +63,7 @@ fosphor_init(void)
 	/* Buffers (if needed) */
 	if (!(self->flags & FLG_FOSPHOR_USE_CLGL_SHARING))
 	{
-		self->img_waterfall = malloc(FOSPHOR_FFT_LEN * 1024 * sizeof(float));
+		self->img_waterfall = malloc(FOSPHOR_FFT_LEN * FOSPHOR_WATERFALL_HEIGHT * sizeof(float));
 		self->img_histogram = malloc(FOSPHOR_FFT_LEN *  128 * sizeof(float));
 		self->buf_spectrum  = malloc(2 * 2 * FOSPHOR_FFT_LEN * sizeof(float));
 

@@ -37,6 +37,8 @@
 #define FOSPHOR_FFT_MULT_BATCH	16
 #define FOSPHOR_FFT_MAX_BATCH	1024
 
+#define FOSPHOR_WATERFALL_HEIGHT 8192
+
 struct fosphor_cl_state;
 struct fosphor_gl_state;
 
